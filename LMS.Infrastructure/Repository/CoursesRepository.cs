@@ -21,11 +21,19 @@ namespace LMS.Infrastructure.Repository
 
         public async Task<IEnumerable<Course>> getAllCoursesAsync()
         {
-            return await _LMSDBContext.Courses.ToListAsync();
+            return await _LMSDBContext.Courses.Include(c=>c.Instructor).ToListAsync();
         }
         public async Task<Course?> GetCourseById(Guid id)
         {
-            return await _LMSDBContext.Courses.FindAsync(id);
+            return await _LMSDBContext.Courses.Include(c=>c.Instructor)
+                .SingleOrDefaultAsync(c=>c.Id==id);
+        }
+        public async Task<Course> createCourse(Course course)
+        {
+            
+            await _LMSDBContext.AddAsync(course);
+            await _LMSDBContext.SaveChangesAsync();
+            return course;
         }
     }
 }

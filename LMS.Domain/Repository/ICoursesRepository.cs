@@ -11,6 +11,6 @@ namespace LMS.Domain.Repository
     {
          Task<IEnumerable<Course>> getAllCoursesAsync();
          Task<Course?> GetCourseById(Guid id);
-        
+        Task<Course> createCourse( Course course);
     }
 }

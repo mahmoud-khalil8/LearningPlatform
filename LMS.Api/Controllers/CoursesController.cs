@@ -1,4 +1,5 @@
 ﻿using LMS.Application.Courses;
+using LMS.Application.Courses.Dtos;
 using LMS.Domain.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,25 @@ namespace LMS.Api.Controllers
             }
             return Ok(course);
         }
+        [HttpPost]
+        public async Task<IActionResult> createCourse([FromBody] CreateCoursesDto courseDto)
+        {
+            if(courseDto == null)
+            {
+                return BadRequest("course data is required");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
 
+            }
+            var createdCourse = await ICoursesService.createCourse(courseDto);
+            
+
+            return CreatedAtAction(nameof(getCourseById), new { id = createdCourse.Id }, createdCourse);
+
+        }
+
+       
     }
 }

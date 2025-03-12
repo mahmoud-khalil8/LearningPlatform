@@ -1,4 +1,5 @@
 using LMS.Infrastructure.Extensions;
+using LMS.Application.Extensions;
 using LMS.Infrastructure.Persistence;
 using LMS.Infrastructure.Seeders;
 namespace LMS.Api
@@ -17,6 +18,7 @@ namespace LMS.Api
             builder.Services.AddSwaggerGen();
             
             builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddApplication();
             var app = builder.Build();
             
             using (var scope = app.Services.CreateScope())

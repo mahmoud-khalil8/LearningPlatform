@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using LMS.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using LMS.Infrastructure.Seeders;
+using LMS.Domain.Repository;
+using LMS.Infrastructure.Repository;
 
 namespace LMS.Infrastructure.Extensions
 {
@@ -20,6 +22,7 @@ namespace LMS.Infrastructure.Extensions
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ILMSSeeder, LMSSeeder>();
+            services.AddScoped<ICoursesRepository, CoursesRepository>();
 
         }
     }

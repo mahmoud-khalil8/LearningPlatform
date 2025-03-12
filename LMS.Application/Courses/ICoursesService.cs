@@ -8,5 +8,7 @@ namespace LMS.Application.Courses
         Task<IEnumerable<CoursesDto>> getall();
         Task<CoursesDto?> GetCourseById(Guid id);
 
+        Task<CoursesDto> createCourse(CreateCoursesDto courseDto);
+
     }
 }

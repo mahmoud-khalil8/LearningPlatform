@@ -1,7 +1,9 @@
-﻿using LMS.Application.Courses.Dtos;
+﻿using AutoMapper;
+using LMS.Application.Courses.Dtos;
 using LMS.Domain.Entities;
 using LMS.Domain.Repository;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,12 @@ namespace LMS.Application.Courses
     {
         private readonly ICoursesRepository ICoursesRepo;
         private readonly ILogger _logger;
-        public CoursesService(ICoursesRepository IRepo , ILogger logger )
+        private readonly IMapper _mapper;
+        public CoursesService(ICoursesRepository IRepo , ILogger<CoursesService> logger,IMapper mapper )
         {
             ICoursesRepo = IRepo;
             _logger = logger;
+            _mapper = mapper;
 
         }
 
@@ -25,7 +29,7 @@ namespace LMS.Application.Courses
         {
             _logger.LogInformation("getting all courses");
             var courses = await ICoursesRepo.getAllCoursesAsync();
-            return courses.Select(course => CoursesDto.FromEntity(course)).ToList();
+            return _mapper.Map<IEnumerable<CoursesDto>>(courses);
         }
         public async Task<CoursesDto?> GetCourseById(Guid id)
         {
@@ -37,7 +41,28 @@ namespace LMS.Application.Courses
                 _logger.LogWarning($"Course with ID {id} not found");
                 return null;
             }
-            return CoursesDto.FromEntity(course);
+            return _mapper.Map<CoursesDto>(course);
+
+        }
+        public async Task<CoursesDto> createCourse(CreateCoursesDto courseDto)
+        {
+            _logger.LogInformation("creating course" );
+
+            var course = _mapper.Map<Course>(courseDto);
+
+            course.Id = Guid.NewGuid();
+            course.CreatedAt = DateTime.UtcNow; ;
+            
+            
+            
+            var createdCourse = await ICoursesRepo.createCourse(course);
+
+
+
+            return _mapper.Map<CoursesDto>(createdCourse);
+          
+
+
 
         }
     }

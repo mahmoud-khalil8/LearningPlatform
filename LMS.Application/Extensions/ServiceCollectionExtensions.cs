@@ -1,4 +1,7 @@
-﻿using LMS.Application.Courses;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using LMS.Application.Courses;
+using LMS.Domain.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -14,6 +17,10 @@ namespace LMS.Application.Extensions
         {
             
             services.AddScoped<ICoursesService, CoursesService>();
+            services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
+            services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly)
+                .AddFluentValidationAutoValidation();
+
 
         }
     }
