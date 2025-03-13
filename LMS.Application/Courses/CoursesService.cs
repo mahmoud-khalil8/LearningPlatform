@@ -14,56 +14,57 @@ namespace LMS.Application.Courses
 {
     public class CoursesService : ICoursesService
     {
-        private readonly ICoursesRepository ICoursesRepo;
-        private readonly ILogger _logger;
-        private readonly IMapper _mapper;
-        public CoursesService(ICoursesRepository IRepo , ILogger<CoursesService> logger,IMapper mapper )
-        {
-            ICoursesRepo = IRepo;
-            _logger = logger;
-            _mapper = mapper;
+        //private readonly ICoursesRepository ICoursesRepo;
+        //private readonly ILogger _logger;
+        //private readonly IMapper _mapper;
+        //public CoursesService(ICoursesRepository IRepo , ILogger<CoursesService> logger,IMapper mapper )
+        //{
+        //    ICoursesRepo = IRepo;
+        //    _logger = logger;
+        //    _mapper = mapper;
 
-        }
+        //}
 
-        public async Task<IEnumerable<CoursesDto>> getall()
-        {
-            _logger.LogInformation("getting all courses");
-            var courses = await ICoursesRepo.getAllCoursesAsync();
-            return _mapper.Map<IEnumerable<CoursesDto>>(courses);
-        }
-        public async Task<CoursesDto?> GetCourseById(Guid id)
-        {
-            _logger.LogInformation("getting one courses with id " + id);
-            var course =  await ICoursesRepo.GetCourseById(id);
+        //public async Task<IEnumerable<CoursesDto>> getall()
+        //{
+        //    _logger.LogInformation("getting all courses");
+        //    var courses = await ICoursesRepo.getAllCoursesAsync();
+        //    return _mapper.Map<IEnumerable<CoursesDto>>(courses);
+        //}
+        //public async Task<CoursesDto?> GetCourseById(Guid id)
+        //{
+        //    _logger.LogInformation("getting one courses with id " + id);
+        //    var course =  await ICoursesRepo.GetCourseById(id);
 
-            if (course == null)
-            {
-                _logger.LogWarning($"Course with ID {id} not found");
-                return null;
-            }
-            return _mapper.Map<CoursesDto>(course);
+        //    if (course == null)
+        //    {
+        //        _logger.LogWarning($"Course with ID {id} not found");
+        //        return null;
+        //    }
+        //    return _mapper.Map<CoursesDto>(course);
 
-        }
-        public async Task<CoursesDto> createCourse(CreateCoursesDto courseDto)
-        {
-            _logger.LogInformation("creating course" );
+        //}
+       // public async Task<CoursesDto> createCourse(CreateCoursesDto courseDto)
+        //{
+            //_logger.LogInformation("creating course" );
 
-            var course = _mapper.Map<Course>(courseDto);
+            //var course = _mapper.Map<Course>(courseDto);
 
-            course.Id = Guid.NewGuid();
-            course.CreatedAt = DateTime.UtcNow; ;
+            //course.Id = Guid.NewGuid();
+            //course.CreatedAt = DateTime.UtcNow; ;
             
             
             
-            var createdCourse = await ICoursesRepo.createCourse(course);
+            //var createdCourse = await ICoursesRepo.createCourse(course);
 
 
-
-            return _mapper.Map<CoursesDto>(createdCourse);
+            ////turn the createdcourse of course type to a courseDto
+            ////CourseDto is the type of the destination type and createdCourse is the source variable
+            //return _mapper.Map<CoursesDto>(createdCourse);
           
 
 
 
-        }
+       // }
     }
 }

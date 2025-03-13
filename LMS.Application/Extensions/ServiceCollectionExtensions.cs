@@ -21,7 +21,7 @@ namespace LMS.Application.Extensions
             services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly)
                 .AddFluentValidationAutoValidation();
 
-
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServiceCollectionExtensions).Assembly));
         }
     }
 }

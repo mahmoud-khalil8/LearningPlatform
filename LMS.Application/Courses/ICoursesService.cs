@@ -5,10 +5,10 @@ namespace LMS.Application.Courses
 {
     public interface ICoursesService
     {
-        Task<IEnumerable<CoursesDto>> getall();
-        Task<CoursesDto?> GetCourseById(Guid id);
+        //Task<IEnumerable<CoursesDto>> getall();
+        //Task<CoursesDto?> GetCourseById(Guid id);
 
-        Task<CoursesDto> createCourse(CreateCoursesDto courseDto);
+        //Task<CoursesDto> createCourse(CreateCoursesDto courseDto);
 
     }
 }

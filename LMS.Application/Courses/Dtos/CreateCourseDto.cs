@@ -18,19 +18,19 @@ namespace LMS.Application.Courses.Dtos
         public string InstructorName { get; set; } = default!;
 
 
-        public static CoursesDto FromEntity(Course course)
-        {
-            return new CoursesDto
-            {
-                Id = course.Id,
-                title = course.title,
-                Description = course.Description,
-                InstructorId = course.InstructorId,
-                InstructorName = course.Instructor?.Name ?? "unknown",
-                CreatedAt = course.CreatedAt,
-            };
+        //    public static CoursesDto FromEntity(Course course)
+        //    {
+        //        return new CoursesDto
+        //        {
+        //            Id = course.Id,
+        //            title = course.title,
+        //            Description = course.Description,
+        //            InstructorId = course.InstructorId,
+        //            InstructorName = course.Instructor?.Name ?? "unknown",
+        //            CreatedAt = course.CreatedAt,
+        //        };
 
-        }
+        //    }
     }
 
 }
